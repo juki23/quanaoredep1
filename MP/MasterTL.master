@@ -1,0 +1,342 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterTL.master.cs" Inherits="MP_MasterTL" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>FASHION WEB</title>
+    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="../css/style.css" rel="stylesheet" />
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Google Fonts -->
+    <link href="../css/fonts.css" rel="stylesheet" />
+    <link href="../css/sticky-navigation.css" rel="stylesheet" />
+    <link href="../css/demo.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            $("div[style='position: fixed; z-index: 2147483647; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: transparent; margin: 0px; padding: 0px;']").remove();
+            $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+            $("div[style='height: 65px;']").remove();
+            $("center").remove();
+            $("script[src='http://ads.mgmt.somee.com/serveimages/ad2/WholeInsert4.js']").remove();
+            // grab the initial top offset of the navigation 
+            var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
+
+            // our function that decides weather the navigation bar should have "fixed" css position or not.
+            var sticky_navigation = function () {
+                var scroll_top = $(window).scrollTop(); // our current vertical position from the top
+
+                // if we've scrolled more than the navigation, change its position to fixed to stick to top, otherwise change it back to relative
+                if (scroll_top > sticky_navigation_offset_top) {
+                    $('#sticky_navigation').css({ 'position': 'fixed', 'top': 0, 'left': 0 });
+                } else {
+                    $('#sticky_navigation').css({ 'position': 'relative' });
+                }
+            };
+
+            // run our function on load
+            sticky_navigation();
+
+            // and run it again every time you scroll
+            $(window).scroll(function () {
+                sticky_navigation();
+            });
+
+            // NOT required:
+            // for this demo disable all links that point to "#"
+            $('a[href="#"]').click(function (event) {
+                event.preventDefault();
+            });
+            createMenu();
+        });
+        function createMenu() {
+            var dsli = $("#menusp").children("li");
+            var i = 0;
+            var len = dsli.length;
+            for (; i < len; i++) {
+                var ItemLi = dsli[i];
+                var MyId = ($(ItemLi).attr("id").split('_'))[1];
+                var MyRoot = ($(ItemLi).attr("id").split('_'))[2];
+                var RootLi = $("#menusp " + "li[id^=m_" + MyRoot + "_]");
+                if (MyRoot != 0) {
+                    if (!$(RootLi).children("ul").length > 0) {
+                        var ultmp = document.createElement("ul");
+                        $(ultmp).append(ItemLi);
+                        $(RootLi).append(ultmp);
+                    } else {
+                        var ultmp = $(RootLi).children("ul");
+                        $(ultmp).append(ItemLi);
+                    }
+                }
+            }
+        }
+        var size = [document.width, document.height];
+
+        $(document).ready(function () {
+            $(window).bind('mousewheel DOMMouseScroll', function (event) {
+                if (event.ctrlKey == true) {
+                    event.preventDefault();
+                }
+            });
+            $(document).keydown(function (event) {
+                if (event.ctrlKey == true || event.which == '17') {
+                    event.preventDefault();
+                }
+            });
+        });
+
+        
+    </script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        ul, li {
+            list-style: none;
+        }
+
+        .navig {
+            float: left;
+            width: 80%;
+            background: white;
+            height: 32px;
+        }
+
+            .navig ul {
+                float: left;
+                position: relative;
+            }
+
+                .navig ul li {
+                    float: left;
+                }
+
+                    .navig ul li a {
+                        float: left;
+                        display: block;
+                        padding: 7px 10px;
+                    }
+
+                    .navig ul li ul {
+                        position: absolute;
+                        width: 201px;
+                        background: white;
+                        margin-top: 32px;
+                        opacity: 0;
+                    }
+
+                        .navig ul li ul li {
+                            width: 100%;
+                            float: left;
+                            overflow: hidden;
+                            height: 0px;
+                        }
+
+                            .navig ul li ul li ul {
+                                margin-left: 186px;
+                                margin-top: -22px;
+                            }
+
+                    .navig ul li:hover > ul {
+                        /*display: block;*/
+                        opacity: 1;
+                        transition: 1s;
+                    }
+
+                        .navig ul li:hover > ul li {
+                            /*display: block;*/
+                            opacity: 1;
+                            height: auto;
+                        }
+
+                            .navig ul li:hover > ul li ul li {
+                                /*display: block;*/
+                                opacity: 1;
+                                height: 0px;
+                            }
+
+                    .navig ul li ul li:hover > ul li {
+                        /*display: block;*/
+                        opacity: 1;
+                        height: auto;
+                    }
+    </style>
+</head>
+
+<body id="body">
+    <form id="form1" runat="server" style="z-index: 22222222222222">
+        <div class="header">
+            <div class="container">
+                <div id="demo_top_wrapper">
+                    <div id="sticky_navigation_wrapper">
+                        <div id="sticky_navigation" style="top: 0px; left: 0px; position: relative;">
+                            <div class="demo_container navigation-bar">
+                                <div class="navigation">
+                                    <div class="logo"><a href="../Home.aspx">Logo</a></div>
+                                    <span class="menu"></span>
+                                    <script>
+                                        $("span.menu").click(function () {
+                                            $(".navig").slideToggle("slow", function () {
+                                                // Animation complete.
+                                            });
+                                        });
+                                    </script>
+                                    <div class="navig">
+                                        <ul>
+                                            <li><a href="../Home.aspx">Trang chủ</a></li>
+                                            <li><a href="../ShowProducts.aspx">Sản phẩm</a>
+                                                <ul id="menusp">
+                                                    <asp:Repeater runat="server" ID="repCate">
+                                                        <ItemTemplate>
+                                                            <li id="m_<%#Eval("idCate") %>_<%#Eval("idRoot")==null ? "0":Eval("idRoot") %>"><a href="../ShowProducts.aspx?idpro=<%#Eval("idCate") %>"><%#Eval("nameCate") %></a><br />
+                                                            </li>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                </ul>
+                                            </li>
+                                            <li><a href="../Contact.aspx">Liên hệ</a></li>
+                                            <li><a href="../About.aspx">Giới thiệu</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="navigation-right">
+                                    <ul class="user">
+                                        <li>
+                                            <span></span>
+                                            <asp:LinkButton ID="lblmenber" OnClick="lblmenber_Click" Visible="false" runat="server" /><asp:LinkButton ID="lbtout" Text="(thoát)" OnClick="lbtout_Click" Visible="false" runat="server" /><asp:LinkButton Text="Đăng nhập" ID="lbtlogin" OnClick="lbtlogin_Click" runat="server" />
+                                        </li>
+                                        <li>
+                                            <span class="bascket"></span><a href="../Bascket.aspx">Giỏ hàng</a>
+                                        </li>
+                                        <li>
+                                            <div class="search"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="serch">
+                                    <span>
+                                        <input type="text" id="iptsearch" placeholder="Tiềm kiếm" runat="server" />
+                                        <asp:Button ID="btnsearch" runat="server" OnClick="btnsearch_Click" />
+                                    </span>
+                                </div>
+                                <script>
+                                    $("div.search").click(function () {
+                                        $(".serch").slideToggle("slow", function () {
+
+                                        });
+                                    });
+                                </script>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <section id="main">
+                <div class="content">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <!--- Subscribe Bar Ends here -->
+                    <div class="look">
+                        <h3>Sản phẩm mới</h3>
+                    </div>
+                    <!-- Partners Starts Here --->
+                    <div class="partner">
+                        <ul id="flexiselDemo3">
+                            <asp:Repeater runat="server" ID="repnewPro">
+                                <ItemTemplate>
+                                    <li>
+                                        <a href="../DetailProduct.aspx?id=<%#Eval("idPro")%>">
+                                            <asp:Image ImageUrl='<%# "../Upload/" + Eval("img") %>' Width="120" Height="120" CssClass="img-responsive" runat="server" /></a>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </ul>
+                        <script type="text/javascript">
+                            $(window).load(function () {
+                                $("#flexiselDemo3").flexisel({
+                                    visibleItems: 5,
+                                    animationSpeed: 1000,
+                                    autoPlay: true,
+                                    autoPlaySpeed: 3000,
+                                    pauseOnHover: true,
+                                    enableResponsiveBreakpoints: true,
+                                    responsiveBreakpoints: {
+                                        portrait: {
+                                            changePoint: 480,
+                                            visibleItems: 1
+                                        },
+                                        landscape: {
+                                            changePoint: 640,
+                                            visibleItems: 2
+                                        },
+                                        tablet: {
+                                            changePoint: 768,
+                                            visibleItems: 3
+                                        }
+                                    }
+                                });
+
+                            });
+                        </script>
+                        <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+                    </div>
+                    <!-- Partners Ends Here --->
+                    <!-- Footer Menu Starts here --->
+                    <div class="footer">
+                        <div class="row footer-row">
+                            <div class="col-md-3 footer-col">
+                                <h3 class="ft-title">Menu</h3>
+                                <ul class="ft-list  list-h">
+                                    <li><a href="../Home.aspx">Trang chủ</a></li>
+                                    <li><a href="../ShowProducts.aspx">Sản phẩm</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3 footer-col">
+                                <h3 class="ft-title">Thông tin</h3>
+                                <ul class="ft-list  list-h">
+                                    <asp:Repeater runat="server" ID="repInfo">
+                                        <ItemTemplate>
+                                            <li><a href='../DetailInfo.aspx?idinfo=<%#Eval("idInfo") %>'><%#Eval("nameInfo") %></a></li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ul>
+                            </div>
+                            <div class="col-md-3 footer-col">
+                                <h3 class="ft-title">Cửa hàng</h3>
+                                <ul class="ft-list list-h">
+                                    <li><a href="../About.aspx">Giới thiệu</a></li>
+                                    <li><a href="../Contact.aspx">Liên hệ</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3 foot-cl">
+                                <h3 class="ft-title">Xã hội</h3>
+                                <p>
+                                    Chúng tôi trên mạng xă hội
+                                </p>
+                                <ul class="social">
+                                    <li><a href="https://facebook.com"><i class="tw"></i></a></li>
+                                    <li><a href="https://twitter.com"><i class="fa"></i></a></li>
+                                    <li><a href="http://instagram.com"><i class="is"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <!-- Footer Menu Ends here --->
+                </div>
+            </section>
+        </div>
+        <script type='text/javascript'>window._sbzq || function (e) { e._sbzq = []; var t = e._sbzq; t.push(["_setAccount", 18451]); var n = e.location.protocol == "https:" ? "https:" : "http:"; var r = document.createElement("script"); r.type = "text/javascript"; r.async = true; r.src = n + "//static.subiz.com/public/js/loader.js"; var i = document.getElementsByTagName("script")[0]; i.parentNode.insertBefore(r, i) }(window);</script>
+    </form>
+    
+</body>
+</html>

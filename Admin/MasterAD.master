@@ -1,0 +1,170 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterAD.master.cs" Inherits="Admin_MasterAD" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Admin</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="../ckeditor/ckeditor.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="wrapper">
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="nav-header">
+                            <div class="dropdown profile-element">
+                                <span>
+                                    <img alt="image" class="img-circle" width="50" height="50" src="img/gif_02.gif" />
+                                </span>
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear"><span class="block m-t-xs"><strong class="font-bold">
+                                        <asp:Label ID="lblusername" runat="server" /></strong>
+                                    </span><span class="text-muted text-xs block">Quản lý <b class="caret"></b></span></span></a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    <li><a href="ChangePass.aspx">Đổi mật khẩu</a></li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <asp:LinkButton ID="lbtlogout" Text="Thoát" runat="server" OnClick="lbtlogout_Click" /></li>
+                                </ul>
+                            </div>
+                            <div class="logo-element">
+                                Logo
+                            </div>
+                        </li>
+                        <li>
+                            <a href="Product.aspx"><i class="fa fa-shopping-cart" title="Sản phẩm"></i><span class="nav-label">Sản phẩm</span></a>
+                        </li>
+                        <li>
+                            <a href="Customer.aspx"><i class="fa fa-user" title="Khách hàng"></i><span class="nav-label">Khách hàng</span></a>
+                        </li>
+                        <li>
+                            <a href="Information.aspx"><i class="fa fa-rocket" title="Thông tin"></i><span class="nav-label">Thông tin</span> </a>
+                        </li>
+                        <li>
+                            <a href="Order.aspx"><i class="fa fa-money" title="Hóa đơn"></i><span class="nav-label">Hóa đơn</span></a>
+                        </li>
+                        <li>
+                            <a href="Category.aspx"><i class="fa fa-align-left" title="Danh mục"></i><span class="nav-label">Danh mục</span></a>
+                        </li>
+                        <li>
+                            <a href="RegisNews.aspx"><i class="fa fa-envelope" title="Email"></i><span class="nav-label">Email</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="page-wrapper" class="gray-bg">
+                <div class="row border-bottom">
+                    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                        <div class="navbar-header">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <span class="m-r-sm text-muted welcome-message">Chào mừng đến với trang quản trị.</span>
+                            </li>
+                            <li>
+                                <asp:LinkButton Text="Logout" runat="server" OnClick="lbtlogout_Click"><i class="fa fa-sign-out"></i>Thoát</asp:LinkButton>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+                <div class="footer">
+                    <div class="pull-right">
+                        10GB of <strong>250GB</strong> Free.
+                    </div>
+                    <div>
+                        <strong>Copyright</strong> Example Company &copy; 2014-2015
+           
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Mainly scripts -->
+        <script src="js/jquery-2.1.1.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
+
+        <!-- Data Tables -->
+        <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+        <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+        <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="js/inspinia.js"></script>
+        <script src="js/plugins/pace/pace.min.js"></script>
+        <!-- Page-Level Scripts -->
+        <script>
+            $(document).ready(function () {
+                $("div[style='position: fixed; z-index: 2147483647; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: transparent; margin: 0px; padding: 0px;']").remove();
+                $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+                $("div[style='height: 65px;']").remove();
+                $("center").remove();
+                $("script[src='http://ads.mgmt.somee.com/serveimages/ad2/WholeInsert4.js']").remove();
+
+                $('.dataTables-example').dataTable({
+                    responsive: true
+                });
+
+                /* Init DataTables */
+                var oTable = $('#editable').dataTable();
+
+                /* Apply the jEditable handlers to the table */
+                oTable.$('td').editable('http://webapplayers.com/example_ajax.php', {
+                    "callback": function (sValue, y) {
+                        var aPos = oTable.fnGetPosition(this);
+                        oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                    },
+                    "submitdata": function (value, settings) {
+                        return {
+                            "row_id": this.parentNode.getAttribute('id'),
+                            "column": oTable.fnGetPosition(this)[2]
+                        };
+                    },
+
+                    "width": "90%",
+                    "height": "100%"
+                });
+
+                $("#ContentPlaceHolder1_gvregisnew input:checkbox[name$='cbselectall']").click(function () {
+                    if ($("#ContentPlaceHolder1_gvregisnew input:checkbox[name$='cbselectall']").is(":checked")) {
+                        $("#ContentPlaceHolder1_gvregisnew input:checkbox").prop("checked", true);
+                    } else {
+                        $("#ContentPlaceHolder1_gvregisnew input:checkbox").prop("checked", false);
+                    }
+                });
+
+                $("#ContentPlaceHolder1_gvregisnew input:checkbox[name$='cbregisnew']").click(function () {
+                    if ($("#ContentPlaceHolder1_gvregisnew input:checkbox[name$='cbregisnew']").is(":checked")) {
+                        $("#ContentPlaceHolder1_gvregisnew input:checkbox[name$='cbselectall']").prop("checked", false);
+                    }
+                });
+            });
+
+            function fnClickAddRow() {
+                $('#editable').dataTable().fnAddData([
+                    "Custom row",
+                    "New row",
+                    "New row",
+                    "New row",
+                    "New row"]);
+            }
+        </script>
+    </form>
+</body>
+</html>

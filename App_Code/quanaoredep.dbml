@@ -1,0 +1,713 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="quanaoredep" Class="quanaoredepDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=quanaoredep.mssql.somee.com;Initial Catalog=quanaoredep;Persist Security Info=False;User ID=juki23_SQLLogin_1" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanAoReDepConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="idCate" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Category_Category" Member="Categories" ThisKey="idCate" OtherKey="idRoot" Type="Category" />
+      <Association Name="Category_Product" Member="Products" ThisKey="idCate" OtherKey="idCate" Type="Product" />
+      <Association Name="Category_Category" Member="Category1" ThisKey="idRoot" OtherKey="idCate" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Regisnews" Member="Regisnews">
+    <Type Name="Regisnew">
+      <Column Name="idRegisnew" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Customer" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="idCus" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Customer_Order" Member="Orders" ThisKey="idCus" OtherKey="idCus" Type="Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Information" Member="Informations">
+    <Type Name="Information">
+      <Column Name="idInfo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nameInfo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="imgInfo" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Information_Information" Member="Informations" ThisKey="idInfo" OtherKey="idRoot" Type="Information" />
+      <Association Name="Information_Information" Member="Information1" ThisKey="idRoot" OtherKey="idInfo" Type="Information" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="idOrder" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idCus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codes" Type="System.String" DbType="Char(100)" CanBeNull="true" />
+      <Column Name="dateBuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="dateDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="status1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Order_OrdersDetail" Member="OrdersDetails" ThisKey="idOrder" OtherKey="idOrder" Type="OrdersDetail" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="idCus" OtherKey="idCus" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrdersDetail" Member="OrdersDetails">
+    <Type Name="OrdersDetail">
+      <Column Name="idOrderD" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Order_OrdersDetail" Member="Order" ThisKey="idOrder" OtherKey="idOrder" Type="Order" IsForeignKey="true" />
+      <Association Name="Product_OrdersDetail" Member="Product" ThisKey="idPro" OtherKey="idPro" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="idPro" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="namePro" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="detailPro" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="dateUp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="activePro" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Product_OrdersDetail" Member="OrdersDetails" ThisKey="idPro" OtherKey="idPro" Type="OrdersDetail" />
+      <Association Name="Category_Product" Member="Category" ThisKey="idCate" OtherKey="idCate" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_checkemail" Method="sp_checkemail">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updatestatusOrders" Method="sp_updatestatusOrders">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <Parameter Name="status1" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_checklogin" Method="sp_checklogin">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="password" Type="System.String" DbType="NVarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deleteCategory" Method="sp_deleteCategory">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deleteCustomer" Method="sp_deleteCustomer">
+    <Parameter Name="idCus" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deletefollowrootInfo" Method="sp_deletefollowrootInfo">
+    <Parameter Name="idInfo" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deleteInformation" Method="sp_deleteInformation">
+    <Parameter Name="idInfo" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deleteOrders" Method="sp_deleteOrders">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deleteProduct" Method="sp_deleteProduct">
+    <Parameter Name="idPro" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deleteRegisnews" Method="sp_deleteRegisnews">
+    <Parameter Name="idRegisnew" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getnameCate" Method="sp_getnameCate">
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_getnameCateResult">
+      <Column Name="idCate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getnameInfo" Method="sp_getnameInfo">
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_getnameInfoResult">
+      <Column Name="idInfo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameInfo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="imgInfo" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_insertCategory" Method="sp_insertCategory">
+    <Parameter Name="nameCate" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <Parameter Name="detailCate" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="activeCate" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertCategorynoroot" Method="sp_insertCategorynoroot">
+    <Parameter Name="nameCate" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="detailCate" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="activeCate" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertCustomer" Method="sp_insertCustomer">
+    <Parameter Name="nameCus" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="password1" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="birthday" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="sex" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="address1" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="phone" Type="System.Int32" DbType="Int" />
+    <Parameter Name="registerDate" Type="System.DateTime" DbType="Date" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertInformation" Method="sp_insertInformation">
+    <Parameter Name="nameInfo" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="imgInfo" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertInformationnoroot" Method="sp_insertInformationnoroot">
+    <Parameter Name="nameInfo" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="imgInfo" Type="System.String" DbType="NVarChar(300)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertOrders" Method="sp_insertOrders">
+    <Parameter Name="idCus" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Codes" Parameter="codes" Type="System.String" DbType="Char(100)" />
+    <Parameter Name="dateBuy" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="dateDelivery" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="notes" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="active" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="status1" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertOrdersdetail" Method="sp_insertOrdersdetail">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idPro" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Price" Parameter="price" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertProduct" Method="sp_insertProduct">
+    <Parameter Name="namePro" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="price" Type="System.Int32" DbType="Int" />
+    <Parameter Name="img" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="detailPro" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="dateUp" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="activePro" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertRegisnews" Method="sp_insertRegisnews">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_paymentsOrder" Method="sp_paymentsOrder">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <Parameter Name="active" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_searchbyDetailInfo" Method="sp_searchbyDetailInfo">
+    <Parameter Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <ElementType Name="sp_searchbyDetailInfoResult">
+      <Column Name="idInfo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameInfo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="imgInfo" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="rootname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchbyIDCate" Method="sp_searchbyIDCate">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyIDCateResult">
+      <Column Name="idCate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchbyIDCustomer" Method="sp_searchbyIDCustomer">
+    <Parameter Name="idCus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyIDCustomerResult">
+      <Column Name="idCus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchbyIDInformation" Method="sp_searchbyIDInformation">
+    <Parameter Name="idInfo" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyIDInformationResult">
+      <Column Name="idInfo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameInfo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="imgInfo" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchbyIDOrder" Method="sp_searchbyIDOrder">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyIDOrderResult">
+      <Column Name="idOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idCus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codes" Type="System.String" DbType="Char(100)" CanBeNull="true" />
+      <Column Name="dateBuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="dateDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="status1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchbyIDOrdersDetail" Method="sp_searchbyIDOrdersDetail">
+    <Parameter Name="idOrderD" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyIDOrdersDetailResult">
+      <Column Name="idOrderD" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchbyIDProduct" Method="sp_searchbyIDProduct">
+    <Parameter Name="idPro" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyIDProductResult">
+      <Column Name="idPro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="namePro" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="detailPro" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="dateUp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="activePro" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchbyIDRegisNew" Method="sp_searchbyIDRegisNew">
+    <Parameter Name="idRegisNew" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyIDRegisNewResult">
+      <Column Name="idRegisnew" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchcodesOrder" Method="sp_searchcodesOrder">
+    <Parameter Name="codes" Type="System.String" DbType="Char(100)" />
+    <ElementType Name="sp_searchcodesOrderResult">
+      <Column Name="idOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idCus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codes" Type="System.String" DbType="Char(100)" CanBeNull="true" />
+      <Column Name="dateBuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="dateDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="status1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCus1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchEmail" Method="sp_searchEmail">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <ElementType Name="sp_searchEmailResult">
+      <Column Name="idRegisnew" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchidOrder" Method="sp_searchidOrder">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchidOrderResult">
+      <Column Name="idOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idCus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codes" Type="System.String" DbType="Char(100)" CanBeNull="true" />
+      <Column Name="dateBuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="dateDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="status1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchnameCate" Method="sp_searchnameCate">
+    <Parameter Name="nameCate" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="sp_searchnameCateResult">
+      <Column Name="idCate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="rootname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchnameCus" Method="sp_searchnameCus">
+    <Parameter Name="nameCus" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="sp_searchnameCusResult">
+      <Column Name="idCus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchnameInfo" Method="sp_searchnameInfo">
+    <Parameter Name="nameInfo" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="sp_searchnameInfoResult">
+      <Column Name="idInfo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameInfo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="imgInfo" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="rootname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_searchnamePro" Method="sp_searchnamePro">
+    <Parameter Name="namePro" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="sp_searchnameProResult">
+      <Column Name="idPro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="namePro" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="detailPro" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="dateUp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="activePro" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idCate1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallCategory" Method="sp_selectallCategory">
+    <ElementType Name="sp_selectallCategoryResult">
+      <Column Name="idCate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="rootname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallCategorynoroot" Method="sp_selectallCategorynoroot">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_selectallCategorynorootResult">
+      <Column Name="idCate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallCustomer" Method="sp_selectallCustomer">
+    <ElementType Name="sp_selectallCustomerResult">
+      <Column Name="idCus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallInformation" Method="sp_selectallInformation">
+    <ElementType Name="sp_selectallInformationResult">
+      <Column Name="idInfo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameInfo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="imgInfo" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="rootname" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallInformationnoroot" Method="sp_selectallInformationnoroot">
+    <Parameter Name="idInfo" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_selectallInformationnorootResult">
+      <Column Name="idInfo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameInfo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="imgInfo" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallOdersdetail" Method="sp_selectallOdersdetail">
+    <ElementType Name="sp_selectallOdersdetailResult">
+      <Column Name="idOrderD" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallOrders" Method="sp_selectallOrders">
+    <ElementType Name="sp_selectallOrdersResult">
+      <Column Name="idOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idCus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codes" Type="System.String" DbType="Char(100)" CanBeNull="true" />
+      <Column Name="dateBuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="dateDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="status1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCus1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallProduct" Method="sp_selectallProduct">
+    <ElementType Name="sp_selectallProductResult">
+      <Column Name="idPro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="namePro" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="detailPro" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="dateUp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="activePro" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idCate1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectallRegisnews" Method="sp_selectallRegisnews">
+    <ElementType Name="sp_selectallRegisnewsResult">
+      <Column Name="idRegisnew" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectbyidCatePro" Method="sp_selectbyidCatePro">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_selectbyidCateProResult">
+      <Column Name="idPro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="namePro" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="detailPro" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="dateUp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="activePro" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idCate1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectbyidOrderOdersdetail" Method="sp_selectbyidOrderOdersdetail">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_selectbyidOrderOdersdetailResult">
+      <Column Name="idOrderD" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPro" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPro1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="namePro" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="detailPro" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="dateUp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="activePro" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectCustomerbyemail" Method="sp_selectCustomerbyemail">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <ElementType Name="sp_selectCustomerbyemailResult">
+      <Column Name="idCus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_updateCategory" Method="sp_updateCategory">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nameCate" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <Parameter Name="detailCate" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="activeCate" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateCategorynoroot" Method="sp_updateCategorynoroot">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nameCate" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="detailCate" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="activeCate" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateCustomer" Method="sp_updateCustomer">
+    <Parameter Name="idCus" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nameCus" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="password1" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="birthday" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="sex" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="address1" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="phone" Type="System.Int32" DbType="Int" />
+    <Parameter Name="registerDate" Type="System.DateTime" DbType="Date" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateInformation" Method="sp_updateInformation">
+    <Parameter Name="idInfo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nameInfo" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="imgInfo" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateInformationnoroot" Method="sp_updateInformationnoroot">
+    <Parameter Name="idInfo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nameInfo" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="detailInfo" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="imgInfo" Type="System.String" DbType="NVarChar(300)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateOrders" Method="sp_updateOrders">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idCus" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Codes" Parameter="codes" Type="System.String" DbType="Char(100)" />
+    <Parameter Name="dateBuy" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="dateDelivery" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="notes" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="active" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="status1" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateOrdersdetail" Method="sp_updateOrdersdetail">
+    <Parameter Name="idOrderD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idPro" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Price" Parameter="price" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateRegisnews" Method="sp_updateRegisnews">
+    <Parameter Name="idRegisnew" Type="System.Int32" DbType="Int" />
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(300)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getproductbyIdRoot" Method="sp_getproductbyIdRoot">
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_getproductbyIdRootResult">
+      <Column Name="idPro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="namePro" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="detailPro" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="dateUp" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="activePro" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_selectbyidCusOrders" Method="sp_selectbyidCusOrders">
+    <Parameter Name="idCus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_selectbyidCusOrdersResult">
+      <Column Name="idOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idCus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Codes" Type="System.String" DbType="Char(100)" CanBeNull="true" />
+      <Column Name="dateBuy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="dateDelivery" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="status1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idCus1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCus" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="password1" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="address1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="phone" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="registerDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_deleteOrdersdetail" Method="sp_deleteOrdersdetail">
+    <Parameter Name="idOrder" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_checkemailRegisnew" Method="sp_checkemailRegisnew">
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="sp_checkemailRegisnewResult">
+      <Column Name="idRegisnew" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_updateactiveProbyCate" Method="sp_updateactiveProbyCate">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <Parameter Name="activePro" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_searchbyidrootCate" Method="sp_searchbyidrootCate">
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_searchbyidrootCateResult">
+      <Column Name="idCate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nameCate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="idRoot" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="detailCate" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="activeCate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_activeProduct" Method="sp_activeProduct">
+    <Parameter Name="idPro" Type="System.Int32" DbType="Int" />
+    <Parameter Name="activePro" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateactiveCate" Method="sp_updateactiveCate">
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <Parameter Name="activeCate" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateactiveCatebyIdroot" Method="sp_updateactiveCatebyIdroot">
+    <Parameter Name="idRoot" Type="System.Int32" DbType="Int" />
+    <Parameter Name="activeCate" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_updateProduct" Method="sp_updateProduct">
+    <Parameter Name="idPro" Type="System.Int32" DbType="Int" />
+    <Parameter Name="namePro" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="price" Type="System.Int32" DbType="Int" />
+    <Parameter Name="img" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="detailPro" Type="System.String" DbType="NVarChar(4000)" />
+    <Parameter Name="dateUp" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="activePro" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="idCate" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
